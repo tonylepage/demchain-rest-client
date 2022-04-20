@@ -37,7 +37,7 @@ def getAllMeasurements():
     print("utf8Result : %s", utf8Result)
     noLinesResult = utf8Result.replace('\r\n', '')
     print("noLinesResult : %s", noLinesResult)
-    pResult = json.loads(noLinesResult.split("status:200 payload:")[1].replace('\\',''))
+    pResult = json.loads(noLinesResult.split("status:200 payload:")[1][1:-4].replace('\\',''))
     print("pResult : %s", pResult)
     fResult = json.dumps(pResult)
     print("final : %s", fResult)
