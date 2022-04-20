@@ -84,7 +84,7 @@ def addMeasurement(measurement: Measurement):
     except TimeoutExpired:
         print('error')
 
-    return {"Response": result}
+    return {"Response": str(out)}
 
 
 @app.put("/measurements/update")
@@ -105,7 +105,7 @@ def updateMeasurement(measurement: Measurement):
     except TimeoutExpired:
         print('error')
 
-    return {"Response": result}
+    return {"Response": str(out)}
 
 
 @app.put("/measurements/delete")
@@ -123,4 +123,4 @@ def deleteMeasurement(measurement: Measurement):
     except TimeoutExpired:
         print('error')
 
-    return {"Response": result}
+    return {"Response": str(out)}
