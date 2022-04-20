@@ -63,9 +63,9 @@ def getAllMeasurementsByLocation(location: str):
 @app.put("/measurements/{location}/{cdn}/add")
 def addMeasurement(location: str, cdn: str, measurement: Measurement):
     fcnArgString = '{"Function":"CreateMeasurement","Args":["' + \
-        location + '", "' + \
-        measurement.measuredepoch + '", "' + \
-        measurement.rtt + '", "' + \
+        location + '", ' + \
+        str(measurement.measuredepoch) + ', ' + \
+        str(measurement.rtt) + ', "' + \
         measurement.cdn + '", "' + \
         measurement.provider + '"]}'
     result = subprocess.Popen(["docker", "exec", "-t",  "cli",
@@ -88,9 +88,9 @@ def addMeasurement(location: str, cdn: str, measurement: Measurement):
 @app.put("/measurements/{location}/{cdn}/update")
 def updateMeasurement(location: str, cdn: str, measurement: Measurement):
     fcnArgString = '{"Function":"UpdateMeasurement","Args":["' + \
-        location + '", "' + \
-        measurement.measuredepoch + '", "' + \
-        measurement.rtt + '", "' + \
+        location + '", ' + \
+        str(measurement.measuredepoch) + ', ' + \
+        str(measurement.rtt) + ', "' + \
         measurement.cdn + '", "' + \
         measurement.provider + '"]}'
     result = subprocess.Popen(["docker", "exec", "-t",  "cli",
