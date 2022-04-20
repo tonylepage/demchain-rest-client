@@ -12,7 +12,7 @@ app = FastAPI()
 class Measurement(BaseModel):
     location: str
     cdn: str
-    measuredEpoch: Optional[int] = None
+    measuredepoch: Optional[int] = None
     rtt: int
     provider: str
 
