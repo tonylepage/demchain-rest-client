@@ -1,4 +1,4 @@
-mport subprocess
+import subprocess
 import time
 import json
 from subprocess import TimeoutExpired
@@ -41,7 +41,7 @@ def getAllMeasurements():
 
 
 @app.get("/measurements/{location}")
-def getAllMeasurementsByLocation():
+def getAllMeasurementsByLocation(location: str):
     fcnArgString = '{"Function":"QueryMeasurementsByLocation","Args":["' + location + '"]}'
     result = subprocess.Popen(["docker", "exec", "-t",  "cli",
      "peer", "chaincode", "invoke" ,"--tls", "--cafile", "/opt/home/managedblockchain-tls-chain.pem", "--channelID", "demchannel" ,"--name" ,"demcc" ,"-c",
@@ -62,12 +62,12 @@ def getAllMeasurementsByLocation():
 
 @app.put("/measurements/{location}/{cdn}/add")
 def addMeasurement(location: str, cdn: str, measurement: Measurement):
-    fcnArgString = "{\"Function\":\"CreateMeasurement\",\"Args\":[\"" +
-        location + "\", \"" +
-        measurement.measuredepoch + "\", \"" +
-        measurement.rtt + "\", \"" +
-        measurement.cdn + "\", \"" +
-        measurement.provider + \"]}"
+    fcnArgString = '{"Function":"CreateMeasurement","Args":["' + \
+        location + '", "' + \
+        measurement.measuredepoch + '", "' + \
+        measurement.rtt + '", "' + \
+        measurement.cdn + '", "' + \
+        measurement.provider + '"]}'
     result = subprocess.Popen(["docker", "exec", "-t",  "cli",
         "peer", "chaincode", "invoke" ,"--tls", "--cafile", "/opt/home/managedblockchain-tls-chain.pem", "--channelID", "demchannel" ,"--name" ,"demcc" ,"-c",
         fcnArgString], stdout=subprocess.PIPE)
@@ -87,12 +87,12 @@ def addMeasurement(location: str, cdn: str, measurement: Measurement):
 
 @app.put("/measurements/{location}/{cdn}/update")
 def updateMeasurement(location: str, cdn: str, measurement: Measurement):
-    fcnArgString = "{\"Function\":\"UpdateMeasurement\",\"Args\":[\"" +
-        location + "\", \"" +
-        measurement.measuredepoch + "\", \"" +
-        measurement.rtt + "\", \"" +
-        measurement.cdn + "\", \"" +
-        measurement.provider + "\"]}"
+    fcnArgString = '{"Function":"UpdateMeasurement","Args":["' + \
+        location + '", "' + \
+        measurement.measuredepoch + '", "' + \
+        measurement.rtt + '", "' + \
+        measurement.cdn + '", "' + \
+        measurement.provider + '"]}'
     result = subprocess.Popen(["docker", "exec", "-t",  "cli",
         "peer", "chaincode", "invoke" ,"--tls", "--cafile", "/opt/home/managedblockchain-tls-chain.pem", "--channelID", "demchannel" ,"--name" ,"demcc" ,"-c",
         fcnArgString], stdout=subprocess.PIPE)
@@ -112,8 +112,8 @@ def updateMeasurement(location: str, cdn: str, measurement: Measurement):
 
 @app.put("/measurements/{location}/{cdn}/delete")
 def deleteMeasurement(location: str, cdn: str):
-    fcnArgString = '{"Function":"DeleteMeasurement","Args":["' +
-        location + '", "' +
+    fcnArgString = '{"Function":"DeleteMeasurement","Args":["' + \
+        location + '", "' + \
         cdn + '"]}'
     result = subprocess.Popen(["docker", "exec", "-t",  "cli",
         "peer", "chaincode", "invoke" ,"--tls", "--cafile", "/opt/home/managedblockchain-tls-chain.pem", "--channelID", "demchannel" ,"--name" ,"demcc" ,"-c",
@@ -125,4 +125,4 @@ def deleteMeasurement(location: str, cdn: str):
     except TimeoutExpired:
         print('error')
 
-    return {"Response": fResult}
+    return {"Response": result}
