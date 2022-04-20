@@ -34,7 +34,8 @@ def getAllMeasurements():
         print('error')
 
     utf8Result = out.decode('utf-8')
-    pResult = json.loads(utf8Result.split("status:200 payload:")[1][1:-4].replace('\\',''))
+    noLinesResult = utf8Result.replace('\n', '')
+    pResult = json.loads(noLinesResult.split("status:200 payload:")[1][1:-4].replace('\\',''))
     fResult = json.dumps(pResult)
     print("final : %s", fResult)
     return {"Response": fResult}
@@ -54,7 +55,8 @@ def getAllMeasurementsByLocation(location: str):
         print('error')
 
     utf8Result = out.decode('utf-8')
-    pResult = json.loads(utf8Result.split("status:200 payload:")[1][1:-4].replace('\\',''))
+    noLinesResult = utf8Result.replace('\n', '')
+    pResult = json.loads(noLinesResult.split("status:200 payload:")[1][1:-4].replace('\\',''))
     fResult = json.dumps(pResult)
     #print("final : %s", fResult)
     return {"Response": fResult}
