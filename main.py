@@ -78,11 +78,7 @@ def addMeasurement(location: str, cdn: str, measurement: Measurement):
     except TimeoutExpired:
         print('error')
 
-    utf8Result = out.decode('utf-8')
-    pResult = json.loads(utf8Result.split("status:200 payload:")[1][1:-4].replace('\\',''))
-    fResult = json.dumps(pResult)
-    #print("final : %s", fResult)
-    return {"Response": fResult}
+    return {"Response": result}
 
 
 @app.put("/measurements/{location}/{cdn}/update")
@@ -103,11 +99,7 @@ def updateMeasurement(location: str, cdn: str, measurement: Measurement):
     except TimeoutExpired:
         print('error')
 
-    utf8Result = out.decode('utf-8')
-    pResult = json.loads(utf8Result.split("status:200 payload:")[1][1:-4].replace('\\',''))
-    fResult = json.dumps(pResult)
-    #print("final : %s", fResult)
-    return {"Response": fResult}
+    return {"Response": result}
 
 
 @app.put("/measurements/{location}/{cdn}/delete")
