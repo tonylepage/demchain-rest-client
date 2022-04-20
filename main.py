@@ -60,10 +60,10 @@ def getAllMeasurementsByLocation(location: str):
     return {"Response": fResult}
 
 
-@app.put("/measurements/{location}/{cdn}/add")
-def addMeasurement(location: str, cdn: str, measurement: Measurement):
+@app.put("/measurements/add")
+def addMeasurement(measurement: Measurement):
     fcnArgString = '{"Function":"CreateMeasurement","Args":["' + \
-        location + '", ' + \
+        measurement.location + '", ' + \
         str(measurement.measuredepoch) + ', ' + \
         str(measurement.rtt) + ', "' + \
         measurement.cdn + '", "' + \
@@ -81,10 +81,10 @@ def addMeasurement(location: str, cdn: str, measurement: Measurement):
     return {"Response": result}
 
 
-@app.put("/measurements/{location}/{cdn}/update")
-def updateMeasurement(location: str, cdn: str, measurement: Measurement):
+@app.put("/measurements/update")
+def updateMeasurement(measurement: Measurement):
     fcnArgString = '{"Function":"UpdateMeasurement","Args":["' + \
-        location + '", ' + \
+        measurement.location + '", ' + \
         str(measurement.measuredepoch) + ', ' + \
         str(measurement.rtt) + ', "' + \
         measurement.cdn + '", "' + \
@@ -102,11 +102,11 @@ def updateMeasurement(location: str, cdn: str, measurement: Measurement):
     return {"Response": result}
 
 
-@app.put("/measurements/{location}/{cdn}/delete")
-def deleteMeasurement(location: str, cdn: str):
+@app.put("/measurements/delete")
+def deleteMeasurement(measurement: Measurement):
     fcnArgString = '{"Function":"DeleteMeasurement","Args":["' + \
-        location + '", "' + \
-        cdn + '"]}'
+        measurement.location + '", "' + \
+        measurement.cdn + '"]}'
     result = subprocess.Popen(["docker", "exec", "-t",  "cli",
         "peer", "chaincode", "invoke" ,"--tls", "--cafile", "/opt/home/managedblockchain-tls-chain.pem", "--channelID", "demchannel" ,"--name" ,"demcc" ,"-c",
         fcnArgString], stdout=subprocess.PIPE)
