@@ -55,7 +55,7 @@ def getAllMeasurementsByLocation(location: str):
         print('error')
 
     utf8Result = out.decode('utf-8')
-    noLinesResult = utf8Result.replace('\n', '')
+    noLinesResult = utf8Result.replace('\r\n', '')
     pResult = json.loads(noLinesResult.split("status:200 payload:")[1][1:-4].replace('\\',''))
     fResult = json.dumps(pResult)
     #print("final : %s", fResult)
